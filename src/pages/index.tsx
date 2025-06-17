@@ -45,35 +45,220 @@ export default function Home() {
   const DEC_RY = isMobile ? 60 : 120;
 
   return (
-    <div className="max-h-screen h-screen w-full flex flex-col items-center justify-between px-0 py-0 bg-white relative overflow-x-hidden">
+    <div className="max-h-screen h-screen w-full flex flex-col items-center justify-between px-0 py-0 bg-[#357A1A] relative overflow-x-hidden">
       {/* Header */}
-      <header className="w-full flex items-center justify-center py-6 px-10 bg-white text-[#357A1A]">
+      <header className="w-full flex items-center justify-between py-6 px-10 bg-[#357A1A] text-white">
         <div className="flex items-center gap-2">
           <img src={"/images/logo.png"} alt={'nutrijus'} width={120} height={100} className="z-10 drop-shadow-2xl" />
-          <div className="text-sm text-[#357A1A]">+237699889182</div>
         </div>
+        <nav className="flex gap-10 text-white font-medium text-base">
+          <a href="tel:+237699889182" className="hover:underline">+237699889182</a>
+        </nav>
+        <div className="flex items-center gap-3">
+          <button
+            className="relative w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+            aria-label="Voir le panier"
+            onClick={() => setShowCart(true)}
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <path d="M7 7V6a5 5 0 0 1 10 0v1" stroke="#fff" strokeWidth="2" fill="none" />
+              <rect x="5" y="7" width="14" height="12" rx="3" stroke="#fff" strokeWidth="2" fill="none" />
+              <circle cx="9" cy="17" r="1.5" fill="#FF7A00" />
+              <circle cx="15" cy="17" r="1.5" fill="#FF7A00" />
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-[#E53935] text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-md border-2 border-white">
+              {cart.reduce((sum, item) => sum + item.quantity, 0)}
+            </span>
+          </button>
+        </div>
+
+        {/* Cart Modal & Overlay */}
+        {showCart && (
+          <>
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 bg-black/40 z-40 transition-opacity duration-300"
+              onClick={() => setShowCart(false)}
+              aria-label="Fermer le panier"
+            />
+            {/* Modal */}
+            <aside
+              className="fixed top-0 right-0 h-screen w-[400px] max-w-full bg-white shadow-2xl z-50 flex flex-col transition-transform duration-300 animate-slideInRight"
+              style={{ maxWidth: '100vw' }}
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-[#357A1A]">
+                <h2 className="text-2xl font-bold text-white">Votre panier</h2>
+                <button
+                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-[#E53935] hover:text-white transition text-[#357A1A]"
+                  onClick={() => setShowCart(false)}
+                  aria-label="Fermer le panier"
+                >
+                  <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M6 6l8 8M14 6l-8 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto px-6 py-4">
+                {cart.length === 0 ? (
+                  <div className="text-center text-gray-400 mt-10">Votre panier est vide.</div>
+                ) : (
+                  <ul className="space-y-5">
+                    {cart.map((item, idx) => {
+                      const prod = products.find(p => p.name === item.productId);
+                      if (!prod) return null;
+                      return (
+                        <li key={item.productId} className="flex items-center gap-4 border-b border-gray-100 pb-4">
+                          <img src={prod.image} alt={prod.name} className="w-14 h-14 rounded-lg object-cover border border-gray-200" />
+                          <div className="flex-1">
+                            <div className="font-bold text-[#357A1A] text-lg">{prod.name}</div>
+                            <div className="text-gray-500 text-sm">{prod.weight}</div>
+                            <div className="flex items-center gap-2 mt-1">
+                              <button
+                                className="w-7 h-7 rounded-full bg-[#FF7A00]/10 text-[#FF7A00] flex items-center justify-center font-bold text-lg hover:bg-[#FF7A00]/20"
+                                onClick={() => removeOneFromCart(item.productId)}
+                                aria-label="Diminuer la quantité"
+                              >
+                                –
+                              </button>
+                              <span className="font-bold text-gray-700 text-base px-2 select-none" style={{ minWidth: 32, display: 'inline-block', textAlign: 'center' }}>{item.quantity}</span>
+                              <button
+                                className="w-7 h-7 rounded-full bg-[#4A9800]/10 text-[#4A9800] flex items-center justify-center font-bold text-lg hover:bg-[#4A9800]/20"
+                                onClick={() => addToCart(item.productId, 1)}
+                                aria-label="Augmenter la quantité"
+                                disabled={item.quantity >= 99}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-end gap-1">
+                            <button
+                              className="w-8 h-8 flex items-center justify-center rounded-full bg-[#E53935]/10 hover:bg-[#E53935]/40 text-[#E53935]"
+                              onClick={() => removeFromCart(item.productId)}
+                              aria-label="Supprimer l’article"
+                            >
+                              <svg width="18" height="18" fill="none" viewBox="0 0 18 18"><path d="M5 5l8 8M13 5l-8 8" stroke="#E53935" strokeWidth="2" strokeLinecap="round" /></svg>
+                            </button>
+                            <div className="font-extrabold text-[#E53935] text-xl">{(prod.price * item.quantity).toFixed(0)} FCFA</div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+              <div className="px-6 py-5 border-t border-gray-100 bg-gray-50">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-semibold text-gray-600">Total</span>
+                  <span className="text-2xl font-bold text-[#357A1A]">
+                    {cart.reduce((sum, item) => {
+                      const prod = products.find(p => p.name === item.productId);
+                      return sum + (prod ? prod.price * item.quantity : 0);
+                    }, 0).toFixed(0)} FCFA
+                  </span>
+                </div>
+                <button
+                  className="w-full py-3 rounded-full bg-[#4A9800] text-white font-bold text-lg shadow hover:bg-[#357A1A] transition"
+                  onClick={() => {
+                    placeOrder();
+                    setShowCart(false);
+                    setOrderConfirmed(true);
+                    setTimeout(() => setOrderConfirmed(false), 2500);
+                  }}
+                >
+                  Valider la commande
+                </button>
+              </div>
+            </aside>
+            <style jsx>{`
+              @keyframes slideInRight {
+                from { transform: translateX(100%); }
+                to { transform: translateX(0); }
+              }
+              .animate-slideInRight {
+                animation: slideInRight 0.3s cubic-bezier(.4,0,.2,1);
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              .animate-fadeIn {
+                animation: fadeIn 0.5s cubic-bezier(.4,0,.2,1);
+              }
+            `}</style>
+          </>
+        )}
+
       </header>
       {/* Main content split */}
-      <div className="relative w-full flex flex-col items-center justify-center z-10">
-        {/* Image produit */}
-        <div className="relative flex flex-col items-center justify-center h-full">
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            className="z-10 drop-shadow-2xl mx-auto w-auto max-h-[38vh] md:max-h-[44vh] min-h-[120px] max-w-full object-contain transition-all duration-300"
-          />
-        </div>
-        {/* Ingrédients en badges scroll horizontal */}
-        <div className="w-full flex flex-wrap items-center justify-center gap-3 mt-4 overflow-x-auto">
-          {product.ingredients && product.ingredients.length > 0 && product.ingredients.map((ing: any, i: number) => (
-            <div key={i} className="flex items-center gap-2 bg-white px-4 h-10 rounded-full text-base font-bold text-[#FF7A00] border border-[#FFD580] shadow-sm min-w-[80px]">
-              {ing.icon && <img src={ing.icon} alt={ing.name} className="rounded-full w-8 h-8 object-cover" />}
-              <span className="text-base font-bold leading-none flex items-center h-full">{ing.name}</span>
+      <div className="relative w-full flex flex-row z-10">
+        {/* Left column */}
+        <div className="flex flex-col justify-start items-start w-[40%] pl-10">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-2">
+            {product.name}
+            <span className="text-2xl font-semibold text-white/70 ml-2">({product.weight})</span>
+          </h1>
+          <p className="text-white/90 max-w-md text-base mb-4 mt-2">
+            {product.description}
+          </p>
+
+          {/* Quantity and cart */}
+          <div className="flex items-center gap-4 mt-4">
+            <div className="px-5 py-2 rounded-full border-2 border-[#4A9800] bg-white text-[#E53935] text-xl font-extrabold flex items-center min-w-[90px] justify-center">
+              {product.price.toFixed(0)} FCFA
             </div>
-          ))}
+            <button
+              className="w-8 h-8 rounded-full bg-white/10 text-white text-xl flex items-center justify-center font-bold hover:bg-white/20 transition"
+              onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              aria-label="Diminuer la quantité"
+              disabled={quantity <= 1}
+            >-</button>
+            <span className="text-white font-bold text-lg min-w-[32px] text-center select-none">{quantity} Litre</span>
+            <button
+              className="w-8 h-8 rounded-full bg-white/10 text-white text-xl flex items-center justify-center font-bold hover:bg-white/20 transition"
+              onClick={() => setQuantity(q => Math.min(99, q + 1))}
+              aria-label="Augmenter la quantité"
+              disabled={quantity >= 99}
+            >+</button>
+            <button
+                className="ml-4 px-6 py-3 rounded-full bg-[#FF7A00] text-white font-bold shadow hover:bg-[#357A1A] hover:text-white transition text-base flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FF7A00]/50 cursor-pointer"
+                onClick={() => {
+                  addToCart(product.name, quantity);
+                  setShowCart(true);
+                  setQuantity(1);
+                }}
+                aria-label="Ajouter au panier"
+              >
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="mr-1">
+                  <path d="M6 6h15l-1.5 9h-13z" stroke="currentColor" strokeWidth="2" fill="none"/>
+                  <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
+                  <circle cx="17" cy="20" r="1.5" fill="currentColor"/>
+                  <path d="M6 6V4a2 2 0 0 1 2-2h2" stroke="currentColor" strokeWidth="2" fill="none"/>
+                </svg>
+                Ajouter au panier
+              </button>
+          </div>
         </div>
-        {/* Nutrition en grille 2 colonnes */}
-        <div className="w-full grid grid-cols-2 gap-4 mt-4">
+        {/* Center column - jar and ingredients/decorations */}
+        <div className="relative w-[40%] flex flex-col items-center justify-center">
+          {/* Pot principal */}
+          <div className="relative flex flex-col items-center justify-center h-full">
+            <img src={product.image} alt={product.name} width={320} height={360} className="z-10 drop-shadow-2xl" />
+          </div>
+          {/* Ingrédients en ligne sous l'image */}
+          <div className="w-full flex flex-wrap items-center justify-center gap-3 mt-4">
+            {product.ingredients && product.ingredients.length > 0 && product.ingredients.map((ing: any, i: number) => (
+              <div key={i} className="flex items-center gap-2 bg-white px-4 h-10 rounded-full text-base font-bold text-[#FF7A00] border border-[#FFD580] shadow-sm min-w-[80px]">
+                {ing.icon && <img src={ing.icon} alt={ing.name} className="rounded-full w-8 h-8 object-cover" />}
+                <span className="text-base font-bold leading-none flex items-center h-full">{ing.name}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+        {/* Right column - nutrition */}
         <div className="flex flex-col items-end justify-start w-[20%] pt-5 pr-8 gap-4">
           {product.nutrition && product.nutrition.length > 0 && product.nutrition.map((nut: any, i: number) => (
             <div key={i} className="bg-white text-[#FF7A00] rounded-2xl px-6 py-4 text-lg font-semibold min-w-[120px] text-right border border-[#FFD580] shadow-sm">
@@ -91,12 +276,12 @@ export default function Home() {
         {products.map((prod, i) => (
           <div
             key={prod.name}
-            className={`flex items-center gap-2 bg-white rounded-2xl px-5 py-3 border-2 transition cursor-pointer relative h-24 md:h-28 min-w-[140px] ${i === carouselIndex ? "border-[#FFD580] scale-105" : "border-transparent opacity-60"}`}
+            className={`flex items-center gap-2 bg-white rounded-2xl px-5 py-3 border-2 transition cursor-pointer relative ${i === carouselIndex ? "border-[#FFD580] scale-105" : "border-transparent opacity-60"}`}
             onClick={() => setCarouselIndex(i)}
-            style={{ minWidth: 140 }}
+            style={{ minWidth: 110 }}
           >
-            <img src={prod.image} alt={prod.name} className="rounded-xl w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0" />
-            <div className="flex flex-col justify-center h-full">
+            <img src={prod.image} alt={prod.name} width={60} height={60} className="mb-1 rounded-xl" />
+            <div>
               <div className="font-bold text-[#FF7A00] text-base">{prod.name}</div>
               <div className="text-sm text-[#FF7A00]/70">{prod.weight}</div>
               <div className="text-lg font-bold text-[#E53935]">{prod.price.toFixed(0)} FCFA</div>

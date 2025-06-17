@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Baobab",
+    "weight": "1",
+    "price": 1500,
+    "productionCost": 1000,
+    "description": "",
+    "nutrition": [
+      {
+        "name": "Energie",
+        "value": "40kj"
+      },
+      {
+        "name": "Protéines",
+        "value": "2g"
+      }
+    ],
+    "ingredients": [
+      {
+        "name": "Orange",
+        "icon": "/uploads/ingredient_1750165562030_1.jpg"
+      },
+      {
+        "name": "Mangue",
+        "icon": "/uploads/ingredient_1750165562030_0.jpg"
+      }
+    ],
+    "id": "1750165562030",
+    "image": "/uploads/product_1750165562030.jpg"
+  },
+  {
+    "id": "prod2-1729240389001",
+    "name": "Yaourt",
+    "weight": "1L",
+    "price": 1500,
+    "productionCost": 1000,
+    "description": "",
+    "nutrition": [
+      {
+        "name": "Energie",
+        "value": "40kj"
+      },
+      {
+        "name": "Protéines",
+        "value": "2g"
+      }
+    ],
+    "ingredients": [],
+    "image": "/uploads/product_prod2-1729240389001.jpg"
+  },
+  {
+    "id": "prod4-1729240389003",
+    "name": "Ananas",
+    "weight": "1L",
+    "price": 1000,
+    "productionCost": 800,
+    "image": "/uploads/product_prod4-1729240389003.png",
+    "description": "",
+    "nutrition": [
+      {
+        "name": "Energie",
+        "value": "40kj"
+      },
+      {
+        "name": "Protéines",
+        "value": "2g"
+      }
+    ],
+    "ingredients": []
+  }
+]

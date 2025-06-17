@@ -245,7 +245,11 @@ export default function Home() {
         <div className="relative w-[40%] flex flex-col items-center justify-center">
           {/* Pot principal */}
           <div className="relative flex flex-col items-center justify-center h-full">
-            <img src={product.image} alt={product.name} width={320} height={360} className="z-10 drop-shadow-2xl" />
+             <img 
+               src={product.image} 
+               alt={product.name} 
+               className="z-10 drop-shadow-2xl mx-auto w-auto max-h-[40vh] md:max-h-[48vh] min-h-[120px] max-w-full object-contain transition-all duration-300"
+             />
           </div>
           {/* Ingrédients en ligne sous l'image */}
           <div className="w-full flex flex-wrap items-center justify-center gap-3 mt-4">
@@ -276,12 +280,12 @@ export default function Home() {
         {products.map((prod, i) => (
           <div
             key={prod.name}
-            className={`flex items-center gap-2 bg-white rounded-2xl px-5 py-3 border-2 transition cursor-pointer relative ${i === carouselIndex ? "border-[#FFD580] scale-105" : "border-transparent opacity-60"}`}
+            className={`flex items-center gap-2 bg-white rounded-2xl px-5 py-3 border-2 transition cursor-pointer relative h-24 md:h-28 min-w-[140px] ${i === carouselIndex ? "border-[#FFD580] scale-105" : "border-transparent opacity-60"}`}
             onClick={() => setCarouselIndex(i)}
-            style={{ minWidth: 110 }}
+            style={{ minWidth: 140 }}
           >
-            <img src={prod.image} alt={prod.name} width={60} height={60} className="mb-1 rounded-xl" />
-            <div>
+            <img src={prod.image} alt={prod.name} className="rounded-xl w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0" />
+            <div className="flex flex-col justify-center h-full">
               <div className="font-bold text-[#FF7A00] text-base">{prod.name}</div>
               <div className="text-sm text-[#FF7A00]/70">{prod.weight}</div>
               <div className="text-lg font-bold text-[#E53935]">{prod.price.toFixed(0)} FCFA</div>

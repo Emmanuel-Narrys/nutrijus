@@ -205,11 +205,14 @@ export default function Home() {
           </p>
 
 
-          {/* Quantity and cart */}
-          <div className="flex items-center gap-4 mt-4">
-            <div className="px-5 py-2 rounded-full border-2 border-[#4A9800] bg-white text-[#E53935] text-xl font-extrabold flex items-center min-w-[90px] justify-center">
+          {/* Prix sur une ligne distincte */}
+          <div className="mt-4">
+            <div className="inline-block px-5 py-2 rounded-full border-2 border-[#4A9800] bg-white text-[#E53935] text-xl font-extrabold min-w-[90px] text-center">
               {product.price.toFixed(0)} FCFA
             </div>
+          </div>
+          {/* Quantity and cart */}
+          <div className="flex items-center gap-4 mt-2">
             <button
               className="w-7 h-7 rounded-full bg-[#FF7A00]/10 text-[#FF7A00] flex items-center justify-center font-bold text-lg hover:bg-[#FF7A00]/20 transition"
               onClick={() => setQuantity(q => Math.max(1, q - 1))}

@@ -4,7 +4,7 @@
     "weight": "1",
     "price": 1500,
     "productionCost": 1000,
-    "description": "",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt vitae esse voluptas in perspiciatis ducimus eligendi laboriosam a nostrum aliquid, sint officia natus accusantium labore, impedit beatae maxime tempore. Beatae!",
     "nutrition": [
       {
         "name": "Energie",
@@ -18,11 +18,11 @@
     "ingredients": [
       {
         "name": "Orange",
-        "icon": "/uploads/ingredient_1750165562030_1.jpg"
+        "icon": "/uploads/ingredient_1750165562030_0.jpg"
       },
       {
         "name": "Mangue",
-        "icon": "/uploads/ingredient_1750165562030_0.jpg"
+        "icon": "/uploads/ingredient_1750165562030_1.jpg"
       }
     ],
     "id": "1750165562030",
@@ -34,7 +34,7 @@
     "weight": "1L",
     "price": 1500,
     "productionCost": 1000,
-    "description": "",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt vitae esse voluptas in perspiciatis ducimus eligendi laboriosam a nostrum aliquid, sint officia natus accusantium labore, impedit beatae maxime tempore. Beatae!",
     "nutrition": [
       {
         "name": "Energie",
@@ -45,7 +45,12 @@
         "value": "2g"
       }
     ],
-    "ingredients": [],
+    "ingredients": [
+      {
+        "name": "Lait",
+        "icon": "/uploads/ingredient_prod2-1729240389001_0.jpg"
+      }
+    ],
     "image": "/uploads/product_prod2-1729240389001.jpg"
   },
   {
@@ -54,8 +59,8 @@
     "weight": "1L",
     "price": 1000,
     "productionCost": 800,
-    "image": "/uploads/product_prod4-1729240389003.png",
-    "description": "",
+    "image": "/uploads/product_prod4-1729240389003.jpg",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt vitae esse voluptas in perspiciatis ducimus eligendi laboriosam a nostrum aliquid, sint officia natus accusantium labore, impedit beatae maxime tempore. Beatae!",
     "nutrition": [
       {
         "name": "Energie",
@@ -66,6 +71,11 @@
         "value": "2g"
       }
     ],
-    "ingredients": []
+    "ingredients": [
+      {
+        "name": "Ananas",
+        "icon": "/uploads/ingredient_prod4-1729240389003_0.jpg"
+      }
+    ]
   }
 ]

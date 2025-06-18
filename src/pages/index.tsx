@@ -45,28 +45,28 @@ export default function Home() {
   const DEC_RY = isMobile ? 60 : 120;
 
   return (
-    <div className="max-h-screen h-screen w-full flex flex-col items-center justify-between px-0 py-0 bg-[#357A1A] relative overflow-x-hidden">
+    <div className="max-h-screen h-screen w-full flex flex-col items-center justify-between px-0 py-0 bg-[#F5F5E5] relative overflow-x-hidden">
       {/* Header */}
-      <header className="w-full flex items-center justify-between py-6 px-10 bg-[#357A1A] text-white">
+      <header className="w-full flex items-center justify-between py-6 px-10 bg-[#F5F5E5] text-[#388E1B]">
         <div className="flex items-center gap-2">
           <img src={"/images/logo.png"} alt={'nutrijus'} width={120} height={100} className="z-10 drop-shadow-2xl" />
         </div>
-        <nav className="flex gap-10 text-white font-medium text-base">
+        <nav className="flex gap-10 text-[#388E1B] font-medium text-base">
           <a href="tel:+237699889182" className="hover:underline">+237699889182</a>
         </nav>
         <div className="flex items-center gap-3">
           <button
-            className="relative w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+            className="relative w-12 h-12 rounded-full bg-[#FF9800]/10 flex items-center justify-center hover:bg-[#FF9800]/20 transition border-2 border-[#FFD600] text-[#388E1B]"
             aria-label="Voir le panier"
             onClick={() => setShowCart(true)}
           >
             <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-              <path d="M7 7V6a5 5 0 0 1 10 0v1" stroke="#fff" strokeWidth="2" fill="none" />
-              <rect x="5" y="7" width="14" height="12" rx="3" stroke="#fff" strokeWidth="2" fill="none" />
-              <circle cx="9" cy="17" r="1.5" fill="#FF7A00" />
-              <circle cx="15" cy="17" r="1.5" fill="#FF7A00" />
+              <path d="M7 7V6a5 5 0 0 1 10 0v1" stroke="#388E1B" strokeWidth="2" fill="none" />
+              <rect x="5" y="7" width="14" height="12" rx="3" stroke="#388E1B" strokeWidth="2" fill="none" />
+              <circle cx="9" cy="17" r="1.5" fill="#FF9800" />
+              <circle cx="15" cy="17" r="1.5" fill="#FF9800" />
             </svg>
-            <span className="absolute -top-1 -right-1 bg-[#E53935] text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-md border-2 border-white">
+            <span className="absolute -top-1 -right-1 bg-[#FF9800] text-[#388E1B] text-xs font-bold rounded-full px-2 py-0.5 shadow-md border-2 border-white">
               {cart.reduce((sum, item) => sum + item.quantity, 0)}
             </span>
           </button>
@@ -83,20 +83,20 @@ export default function Home() {
             />
             {/* Modal */}
             <aside
-              className="fixed top-0 right-0 h-screen w-[400px] max-w-full bg-white shadow-2xl z-50 flex flex-col transition-transform duration-300 animate-slideInRight"
+              className="fixed top-0 right-0 h-screen w-[400px] max-w-full bg-[#F5F5E5] shadow-2xl z-50 flex flex-col transition-transform duration-300 animate-slideInRight border-l-4 border-[#FFD600]"
               style={{ maxWidth: '100vw' }}
               role="dialog"
               aria-modal="true"
             >
-              <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-[#357A1A]">
-                <h2 className="text-2xl font-bold text-white">Votre panier</h2>
+              <div className="flex items-center justify-between px-6 py-5 border-b border-[#FFD600] bg-[#F5F5E5]">
+                <h2 className="text-2xl font-bold text-[#388E1B]">Votre panier</h2>
                 <button
-                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-[#E53935] hover:text-white transition text-[#357A1A]"
+                  className="w-9 h-9 rounded-full bg-[#FF9800]/10 flex items-center justify-center hover:bg-[#FF9800]/30 transition text-[#388E1B] border-2 border-[#FFD600]"
                   onClick={() => setShowCart(false)}
                   aria-label="Fermer le panier"
                 >
                   <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
-                    <path d="M6 6l8 8M14 6l-8 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M6 6l8 8M14 6l-8 8" stroke="#388E1B" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                 </button>
               </div>
@@ -160,7 +160,7 @@ export default function Home() {
                   </span>
                 </div>
                 <button
-                  className="w-full py-3 rounded-full bg-[#4A9800] text-white font-bold text-lg shadow hover:bg-[#357A1A] transition"
+                  className="w-full py-3 rounded-full bg-[#4A9800] text-[#388E1B] font-bold text-lg shadow hover:bg-[#357A1A] transition"
                   onClick={() => {
                     placeOrder();
                     setShowCart(false);
@@ -196,13 +196,14 @@ export default function Home() {
       <div className="relative w-full flex flex-row z-10">
         {/* Left column */}
         <div className="flex flex-col justify-start items-start w-[40%] pl-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-2">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-[#388E1B] leading-tight mb-2">
             {product.name}
-            <span className="text-2xl font-semibold text-white/70 ml-2">({product.weight})</span>
+            <span className="text-2xl font-semibold text-[#388E1B]/70 ml-2">({product.weight})</span>
           </h1>
-          <p className="text-white/90 max-w-md text-base mb-4 mt-2">
+          <p className="text-[#388E1B]/90 max-w-md text-base mb-4 mt-2">
             {product.description}
           </p>
+
 
           {/* Quantity and cart */}
           <div className="flex items-center gap-4 mt-4">
@@ -210,57 +211,58 @@ export default function Home() {
               {product.price.toFixed(0)} FCFA
             </div>
             <button
-              className="w-8 h-8 rounded-full bg-white/10 text-white text-xl flex items-center justify-center font-bold hover:bg-white/20 transition"
+              className="w-7 h-7 rounded-full bg-[#FF7A00]/10 text-[#FF7A00] flex items-center justify-center font-bold text-lg hover:bg-[#FF7A00]/20 transition"
               onClick={() => setQuantity(q => Math.max(1, q - 1))}
               aria-label="Diminuer la quantité"
               disabled={quantity <= 1}
             >-</button>
-            <span className="text-white font-bold text-lg min-w-[32px] text-center select-none">{quantity} Litre</span>
+            <span className="font-bold text-gray-700 text-base px-2 select-none" style={{ minWidth: 32, display: 'inline-block', textAlign: 'center' }}>{quantity} Litre</span>
             <button
-              className="w-8 h-8 rounded-full bg-white/10 text-white text-xl flex items-center justify-center font-bold hover:bg-white/20 transition"
+              className="w-7 h-7 rounded-full bg-[#4A9800]/10 text-[#4A9800] flex items-center justify-center font-bold text-lg hover:bg-[#4A9800]/20 transition"
               onClick={() => setQuantity(q => Math.min(99, q + 1))}
               aria-label="Augmenter la quantité"
               disabled={quantity >= 99}
             >+</button>
             <button
-                className="ml-4 px-6 py-3 rounded-full bg-[#FF7A00] text-white font-bold shadow hover:bg-[#357A1A] hover:text-white transition text-base flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FF7A00]/50 cursor-pointer"
-                onClick={() => {
-                  addToCart(product.name, quantity);
-                  setShowCart(true);
-                  setQuantity(1);
-                }}
-                aria-label="Ajouter au panier"
-              >
-                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="mr-1">
-                  <path d="M6 6h15l-1.5 9h-13z" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
-                  <circle cx="17" cy="20" r="1.5" fill="currentColor"/>
-                  <path d="M6 6V4a2 2 0 0 1 2-2h2" stroke="currentColor" strokeWidth="2" fill="none"/>
-                </svg>
-                Ajouter au panier
-              </button>
+              className="ml-4 px-6 py-3 rounded-full bg-[#FF7A00] text-white font-bold shadow hover:bg-[#357A1A] hover:text-white transition text-base flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FF7A00]/50 cursor-pointer"
+              onClick={() => {
+                addToCart(product.name, quantity);
+                setShowCart(true);
+                setQuantity(1);
+              }}
+              aria-label="Ajouter au panier"
+            >
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="mr-1">
+                <path d="M6 6h15l-1.5 9h-13z" stroke="currentColor" strokeWidth="2" fill="none" />
+                <circle cx="9" cy="20" r="1.5" fill="currentColor" />
+                <circle cx="17" cy="20" r="1.5" fill="currentColor" />
+                <path d="M6 6V4a2 2 0 0 1 2-2h2" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
+              Ajouter au panier
+            </button>
           </div>
         </div>
         {/* Center column - jar and ingredients/decorations */}
         <div className="relative w-[40%] flex flex-col items-center justify-center">
           {/* Pot principal */}
           <div className="relative flex flex-col items-center justify-center h-full">
-             <img 
-               src={product.image} 
-               alt={product.name} 
-               className="z-10 drop-shadow-2xl mx-auto w-auto max-h-[40vh] md:max-h-[48vh] min-h-[120px] max-w-full object-contain transition-all duration-300"
-             />
-          </div>
-          {/* Ingrédients en ligne sous l'image */}
-          <div className="w-full flex flex-wrap items-center justify-center gap-3 mt-4">
-            {product.ingredients && product.ingredients.length > 0 && product.ingredients.map((ing: any, i: number) => (
-              <div key={i} className="flex items-center gap-2 bg-white px-4 h-10 rounded-full text-base font-bold text-[#FF7A00] border border-[#FFD580] shadow-sm min-w-[80px]">
-                {ing.icon && <img src={ing.icon} alt={ing.name} className="rounded-full w-8 h-8 object-cover" />}
-                <span className="text-base font-bold leading-none flex items-center h-full">{ing.name}</span>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="z-10 drop-shadow-2xl mx-auto w-auto max-h-[40vh] md:max-h-[48vh] min-h-[120px] max-w-full object-contain transition-all duration-300"
+            />
+            {/* Ingrédients sous le pot */}
+            {product.ingredients && product.ingredients.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-2 w-full">
+                {product.ingredients.map((ing: any, i: number) => (
+                  <div key={i} className="flex items-center gap-2 bg-white px-4 h-10 rounded-full text-base font-bold text-[#388E1B] border border-[#FFD600] shadow-sm min-w-[80px]">
+                    {ing.icon && <img src={ing.icon} alt={ing.name} className="rounded-full w-8 h-8 object-cover bg-white" />}
+                    <span className="text-base font-bold leading-none flex items-center h-full">{ing.name}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-
         </div>
         {/* Right column - nutrition */}
         <div className="flex flex-col items-end justify-start w-[20%] pt-5 pr-8 gap-4">
@@ -274,7 +276,7 @@ export default function Home() {
       </div>
       {/* Carrousel produits */}
       <div className="mt-14 flex items-center justify-center gap-8 w-full">
-        <button onClick={prevProduct} className="w-12 h-12 rounded-full bg-[#4A9800] flex items-center justify-center border-2 border-white hover:bg-white/10 transition text-2xl text-white font-bold">
+        <button onClick={prevProduct} className="w-12 h-12 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold cursor-pointer">
           &#8592;
         </button>
         {products.map((prod, i) => (
@@ -288,7 +290,11 @@ export default function Home() {
             <div className="flex flex-col justify-center h-full">
               <div className="font-bold text-[#FF7A00] text-base">{prod.name}</div>
               <div className="text-sm text-[#FF7A00]/70">{prod.weight}</div>
-              <div className="text-lg font-bold text-[#E53935]">{prod.price.toFixed(0)} FCFA</div>
+              <div className="mt-1">
+                <span className="inline-block px-3 py-1 rounded-full border border-[#FFD580] bg-white text-[#E53935] text-base font-extrabold min-w-[70px] text-center">
+                  {prod.price.toFixed(0)} FCFA
+                </span>
+              </div>
               {/* Chevron sur la carte de droite */}
               {i === (carouselIndex + 1) % products.length && (
                 <button
@@ -302,12 +308,12 @@ export default function Home() {
             </div>
           </div>
         ))}
-        <button onClick={nextProduct} className="w-12 h-12 rounded-full bg-[#4A9800] flex items-center justify-center border-2 border-white hover:bg-white/10 transition text-2xl text-white font-bold">
+        <button onClick={nextProduct} className="w-12 h-12 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold cursor-pointer">
           &#8594;
         </button>
       </div>
       {/* Footer */}
-      <div className="py-2 text-white text-md opacity-80 z-10">Réalisé par @cerantech</div>
+      <div className="py-2 text-[#388E1B] text-md opacity-80 z-10">Réalisé par @cerantech</div>
     </div>
   );
 }

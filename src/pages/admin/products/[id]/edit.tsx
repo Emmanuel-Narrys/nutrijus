@@ -93,6 +93,8 @@ export default function EditProduct() {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('productId', id as string);
+        formData.append('ingredient', '1');
+        formData.append('ingredientIndex', idx.toString());
         const res = await fetch('/api/upload', {
             method: 'POST',
             body: formData,

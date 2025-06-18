@@ -82,7 +82,9 @@ export default function NewProduct() {
   const handleIngredientIconChange = async (idx: number, file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('productId', 'ingredient');
+    formData.append('productId', 'temp'); // ou l'id réel si dispo
+    formData.append('ingredient', '1');
+    formData.append('ingredientIndex', idx.toString()); 
     const res = await fetch('/api/upload', {
       method: 'POST',
       body: formData,

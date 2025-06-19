@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -14,13 +14,20 @@ export default function Login() {
     }
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (username === "admin" && password === "admin") {
-      localStorage.setItem("nutrijus_admin_token", "demo-token");
+    setError("");
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tel, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("nutrijus_admin_token", data.id);
       router.push("/admin");
     } else {
-      setError("Identifiants invalides");
+      setError(data.error || "Identifiants invalides");
     }
   }
 
@@ -49,14 +56,14 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-xs flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
         <h1 className="text-2xl font-bold text-[#357A1A] mb-2 text-center">Connexion Admin</h1>
         <div className="flex flex-col gap-2">
-          <label htmlFor="username" className="font-semibold text-[#357A1A]">Nom d'utilisateur</label>
+          <label htmlFor="tel" className="font-semibold text-[#357A1A]">Téléphone</label>
           <input
-            id="username"
+            id="tel"
             type="text"
-            placeholder="Nom d'utilisateur"
+            placeholder="Numéro de téléphone"
             className="border border-gray-400 focus:border-[#4A9800] focus:ring-2 focus:ring-[#E6F9D5] p-2 rounded outline-none text-gray-900 bg-white placeholder-gray-400"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            value={tel}
+            onChange={e => setTel(e.target.value)}
             required
           />
         </div>

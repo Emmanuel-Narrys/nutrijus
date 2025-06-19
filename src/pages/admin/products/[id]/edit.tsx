@@ -163,7 +163,15 @@ export default function EditProduct() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#e8ffe3] to-[#fffbe8] flex flex-col items-center p-6">
             <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full flex flex-col items-center border border-[#e6e6e6]">
-                <h1 className="text-3xl font-bold text-[#357A1A] mb-4">Modifier le produit</h1>
+                <button
+                    onClick={() => router.push('/admin/products')}
+                    className="self-start mb-4 flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F8F9FA] hover:bg-[#FFD580] text-[#357A1A] font-semibold shadow-sm border border-[#e0e0e0] transition"
+                    type="button"
+                >
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="#357A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    Retour produits
+                </button>
+                <h1 className="text-3xl font-bold text-[#357A1A] mb-4">Éditer le produit</h1>
                 {notif && <div className="mb-4 text-center text-white bg-[#357A1A] px-4 py-2 rounded">{notif}</div>}
                 <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-2">

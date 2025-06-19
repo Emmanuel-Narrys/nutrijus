@@ -25,10 +25,19 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   if (req.method === 'POST') {
     const orders = readOrders();
-    const newOrder = req.body;
-    orders.unshift(newOrder);
-    writeOrders(orders);
-    return res.status(201).json(newOrder);
+    if (req.body && req.body.bulk && Array.isArray(req.body.orders)) {
+      // Création en masse : ajoute chaque commande individuellement
+      for (const order of req.body.orders) {
+        orders.unshift(order);
+      }
+      writeOrders(orders);
+      return res.status(201).json({ success: true, count: req.body.orders.length });
+    } else {
+      const newOrder = req.body;
+      orders.unshift(newOrder);
+      writeOrders(orders);
+      return res.status(201).json(newOrder);
+    }
   }
   if (req.method === 'PUT') {
     const { index, order } = req.body;

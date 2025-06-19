@@ -1,1 +1,255 @@
-[]
+[
+  {
+    "id": "1750349871219",
+    "items": [
+      {
+        "productId": "prod4-1729240389003",
+        "quantity": 1,
+        "price": 1000,
+        "purchasePrice": 800
+      }
+    ],
+    "total": 2000,
+    "createdAt": "2025-06-19T16:17:51.219Z",
+    "customerInfo": {
+      "name": "Test",
+      "phone": "698545213",
+      "isWhatsapp": true,
+      "deliveryPlace": "Total"
+    },
+    "status": "delivered",
+    "delivery": "Total",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349760375-4-8313",
+    "items": [
+      {
+        "productId": "prod2-1729240389001",
+        "quantity": 1,
+        "price": 1500,
+        "purchasePrice": 1000
+      }
+    ],
+    "total": 1500,
+    "createdAt": "2025-06-19T16:16:00.375Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Retrait"
+    },
+    "status": "Delivered",
+    "delivery": "Retrait",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349760375-3-2961",
+    "items": [
+      {
+        "productId": "prod2-1729240389001",
+        "quantity": 1,
+        "price": 1500,
+        "purchasePrice": 1000
+      }
+    ],
+    "total": 1500,
+    "createdAt": "2025-06-19T16:16:00.375Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Retrait"
+    },
+    "status": "Delivered",
+    "delivery": "Retrait",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349760375-2-4952",
+    "items": [
+      {
+        "productId": "prod2-1729240389001",
+        "quantity": 1,
+        "price": 1500,
+        "purchasePrice": 1000
+      }
+    ],
+    "total": 1500,
+    "createdAt": "2025-06-19T16:16:00.375Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Retrait"
+    },
+    "status": "Delivered",
+    "delivery": "Retrait",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349760375-1-5919",
+    "items": [
+      {
+        "productId": "prod2-1729240389001",
+        "quantity": 1,
+        "price": 1500,
+        "purchasePrice": 1000
+      }
+    ],
+    "total": 1500,
+    "createdAt": "2025-06-19T16:16:00.375Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Retrait"
+    },
+    "status": "Delivered",
+    "delivery": "Retrait",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349760375-0-7703",
+    "items": [
+      {
+        "productId": "prod2-1729240389001",
+        "quantity": 1,
+        "price": 1500,
+        "purchasePrice": 1000
+      }
+    ],
+    "total": 1500,
+    "createdAt": "2025-06-19T16:16:00.375Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Retrait"
+    },
+    "status": "Delivered",
+    "delivery": "Retrait",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349738952-4-3115",
+    "items": [
+      {
+        "productId": "1750325458386",
+        "quantity": 1,
+        "price": 2000,
+        "purchasePrice": 1300
+      }
+    ],
+    "total": 3000,
+    "createdAt": "2025-06-19T16:15:38.952Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Livraison"
+    },
+    "status": "Delivered",
+    "delivery": "Livraison",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349738952-3-1182",
+    "items": [
+      {
+        "productId": "1750325458386",
+        "quantity": 1,
+        "price": 2000,
+        "purchasePrice": 1300
+      }
+    ],
+    "total": 3000,
+    "createdAt": "2025-06-19T16:15:38.952Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Livraison"
+    },
+    "status": "Delivered",
+    "delivery": "Livraison",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349738952-2-4190",
+    "items": [
+      {
+        "productId": "1750325458386",
+        "quantity": 1,
+        "price": 2000,
+        "purchasePrice": 1300
+      }
+    ],
+    "total": 3000,
+    "createdAt": "2025-06-19T16:15:38.952Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Livraison"
+    },
+    "status": "Delivered",
+    "delivery": "Livraison",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349738952-1-7941",
+    "items": [
+      {
+        "productId": "1750325458386",
+        "quantity": 1,
+        "price": 2000,
+        "purchasePrice": 1300
+      }
+    ],
+    "total": 3000,
+    "createdAt": "2025-06-19T16:15:38.952Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Livraison"
+    },
+    "status": "Delivered",
+    "delivery": "Livraison",
+    "payment": "",
+    "date": "2025-06-19"
+  },
+  {
+    "id": "1750349738952-0-8420",
+    "items": [
+      {
+        "productId": "1750325458386",
+        "quantity": 1,
+        "price": 2000,
+        "purchasePrice": 1300
+      }
+    ],
+    "total": 3000,
+    "createdAt": "2025-06-19T16:15:38.952Z",
+    "customerInfo": {
+      "name": "Vente boutique",
+      "phone": "",
+      "isWhatsapp": false,
+      "deliveryPlace": "Livraison"
+    },
+    "status": "Delivered",
+    "delivery": "Livraison",
+    "payment": "",
+    "date": "2025-06-19"
+  }
+]

@@ -1,7 +1,36 @@
 [
   {
+    "name": "Corossol",
+    "weight": "1L",
+    "price": 2000,
+    "productionCost": 1300,
+    "image": "/uploads/product_temp.jpg",
+    "description": "Test ",
+    "nutrition": [
+      {
+        "name": "Energie",
+        "value": "60kj"
+      },
+      {
+        "name": "Protéines",
+        "value": "5g"
+      }
+    ],
+    "ingredients": [
+      {
+        "name": "Corossol",
+        "icon": "/uploads/ingredient_temp_0.jpg"
+      },
+      {
+        "name": "Lait",
+        "icon": "/uploads/ingredient_temp_1.jpg"
+      }
+    ],
+    "id": "1750325458386"
+  },
+  {
     "name": "Baobab",
-    "weight": "1",
+    "weight": "1L",
     "price": 1500,
     "productionCost": 1000,
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt vitae esse voluptas in perspiciatis ducimus eligendi laboriosam a nostrum aliquid, sint officia natus accusantium labore, impedit beatae maxime tempore. Beatae!",

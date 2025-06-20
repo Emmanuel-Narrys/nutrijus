@@ -1,3 +1,5 @@
+'use client';
+
 // Type officiel pour l'événement beforeinstallprompt
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -7,18 +9,24 @@ interface BeforeInstallPromptEvent extends Event {
 import React, { useEffect, useState } from "react";
 
 const PWAInstallButton: React.FC = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [visible, setVisible] = useState(false);
+  // TypeScript : typage custom pour beforeinstallprompt
+  type BeforeInstallPromptEvent = Event & {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+  };
 
-  useEffect(() => {
+  const [deferredPrompt, setDeferredPrompt] = React.useState<BeforeInstallPromptEvent | null>(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
       console.log("[PWAInstallButton] beforeinstallprompt fired", e);
       e.preventDefault();
       setDeferredPrompt(e);
       setVisible(true);
     };
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", handler as EventListener);
+    return () => window.removeEventListener("beforeinstallprompt", handler as EventListener);
   }, []);
 
   const handleInstallClick = async () => {

@@ -18,7 +18,7 @@ function writeOrders(orders: any[]) {
   fs.writeFileSync(DATA_PATH, JSON.stringify(orders, null, 2), 'utf-8');
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const orders = readOrders();
     return res.status(200).json(orders);
@@ -36,6 +36,34 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       const newOrder = req.body;
       orders.unshift(newOrder);
       writeOrders(orders);
+      // --- Envoi WhatsApp à l'admin ---
+      try {
+        const adminNumber = process.env.NEXT_PUBLIC_WHATSAPP_ADMIN;
+        if (adminNumber) {
+          await fetch(`${req.headers.origin || ''}/api/whatsapp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to: adminNumber,
+              message: `Nouvelle commande reçue :\n${JSON.stringify(newOrder, null, 2)}`
+            })
+          });
+        }
+        // --- Envoi WhatsApp au client ---
+        if (newOrder.customerInfo && newOrder.customerInfo.phone) {
+          await fetch(`${req.headers.origin || ''}/api/whatsapp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to: newOrder.customerInfo.phone,
+              message: `Merci pour votre commande ! Voici le récapitulatif :\n${JSON.stringify(newOrder, null, 2)}`
+            })
+          });
+        }
+      } catch (e) {
+        // Optionnel: log l'erreur
+        console.error('Erreur lors de l\'envoi WhatsApp:', e);
+      }
       return res.status(201).json(newOrder);
     }
   }

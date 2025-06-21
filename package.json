@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start_next": "next start",
-    "start": "NODE_ENV=production node server.js",
+    "start": "next start -p 3080",
     "lint": "next lint"
   },
   "dependencies": {

@@ -1,9 +1,35 @@
 import React, { useEffect } from "react";
 
+// Hook pour ajuster dynamiquement la taille de la police de base selon la hauteur de l'écran
+function useResponsiveFontSize() {
+  useEffect(() => {
+    function updateFontSize() {
+      const minHeight = 666;
+      const minFont = 13;
+      const maxHeight = 1000;
+      const maxFont = 18;
+      const screenHeight = window.innerHeight;
+      let fontSize;
+      if (screenHeight <= minHeight) {
+        fontSize = minFont;
+      } else if (screenHeight >= maxHeight) {
+        fontSize = maxFont;
+      } else {
+        fontSize = minFont + ((screenHeight - minHeight) / (maxHeight - minHeight)) * (maxFont - minFont);
+      }
+      document.documentElement.style.fontSize = `${fontSize}px`;
+    }
+    updateFontSize();
+    window.addEventListener("resize", updateFontSize);
+    return () => window.removeEventListener("resize", updateFontSize);
+  }, []);
+}
+
+
 import { Order, OrderStatus, PaymentMode, useShop } from "../context/ShopContext";
 
 export default function Home() {
-  console.log('RENDER/REMOUNT HOME');
+  useResponsiveFontSize();
   const [touchStartX, setTouchStartX] = React.useState<number | null>(null);
   const [touchEndX, setTouchEndX] = React.useState<number | null>(null);
 
@@ -43,16 +69,6 @@ export default function Home() {
     setShowOrderModal(false); // Ferme la modale de commande seulement après confirmation du feedback
   };
 
-  // Retire 1 unité d’un produit du panier (min 1)
-  const removeOneFromCart = (productId: string) => {
-    const item = cart.find(i => i.productId === productId);
-    if (item && item.quantity > 1) {
-      addToCart(productId, -1);
-    } else {
-      removeFromCart(productId);
-    }
-  };
-
   const [carouselIndex, setCarouselIndex] = React.useState(0);
   const nextProduct = () => setCarouselIndex((i) => (i + 1) % products.length);
   const prevProduct = () => setCarouselIndex((i) => (i - 1 + products.length) % products.length);
@@ -61,20 +77,20 @@ export default function Home() {
     <div className="max-h-screen h-screen w-full flex flex-col items-center justify-between px-0 py-0 bg-[#F5F5E5] relative overflow-x-hidden">
       {/* Feedback commande : TOUJOURS hors du <form> de validation de commande */}
       {orderFeedback != null && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 z-[99] flex items-center justify-center bg-black/40">
           <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center max-w-sm w-full animate-fadeIn">
             {orderFeedback.type === 'success' ? (
               <div className="mb-4">
                 <svg className="animate-popIn" width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  <circle cx="32" cy="32" r="32" fill="#4BB543"/>
-                  <path d="M18 34L28 44L46 26" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="32" cy="32" r="32" fill="#4BB543" />
+                  <path d="M18 34L28 44L46 26" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
             ) : (
               <div className="mb-4">
                 <svg className="animate-shake" width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  <circle cx="32" cy="32" r="32" fill="#E53935"/>
-                  <path d="M24 24L40 40M40 24L24 40" stroke="#fff" strokeWidth="5" strokeLinecap="round"/>
+                  <circle cx="32" cy="32" r="32" fill="#E53935" />
+                  <path d="M24 24L40 40M40 24L24 40" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
                 </svg>
               </div>
             )}
@@ -99,8 +115,8 @@ export default function Home() {
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/40">
           <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center max-w-xs w-full animate-fadeIn">
             <svg className="animate-spin mb-4" width="48" height="48" viewBox="0 0 50 50">
-              <circle cx="25" cy="25" r="20" fill="none" stroke="#FFD600" strokeWidth="6" strokeDasharray="31.4 31.4"/>
-              <circle cx="25" cy="25" r="20" fill="none" stroke="#388E1B" strokeWidth="6" strokeDasharray="31.4 31.4" strokeDashoffset="31.4"/>
+              <circle cx="25" cy="25" r="20" fill="none" stroke="#FFD600" strokeWidth="6" strokeDasharray="31.4 31.4" />
+              <circle cx="25" cy="25" r="20" fill="none" stroke="#388E1B" strokeWidth="6" strokeDasharray="31.4 31.4" strokeDashoffset="31.4" />
             </svg>
             <div className="text-[#388E1B] font-bold text-lg">Traitement de la commande...</div>
           </div>
@@ -108,16 +124,16 @@ export default function Home() {
       )}
       {/* Header sticky/fixed */}
       <header className="fixed top-0 left-0 w-full z-30 bg-[#F5F5E5] shadow-md flex items-center px-2 sm:px-8 justify-between"
-        style={{ height: '56px', minHeight: '56px' }}>
+        style={{ height: '44px', minHeight: '44px' }}>
         <div className="flex-1 flex items-center min-w-0">
-          <img src={"/logo.png"} alt={'nutrijus'} width={72} height={60} className="z-10 drop-shadow-2xl max-h-12 w-auto" />
+          <img src={"/logo.png"} alt={'nutrijus'} width={54} height={36} className="z-10 drop-shadow-2xl max-h-10 w-auto" />
         </div>
         <nav className="flex gap-4 sm:gap-10 text-[#388E1B] font-medium text-base">
         </nav>
         <div className="flex items-center gap-2 sm:gap-5">
           <button
             type="button"
-            className="relative w-12 h-12 rounded-full bg-[#FF9800]/10 flex items-center justify-center hover:bg-[#FF9800]/20 transition border-2 border-[#FFD600] text-[#388E1B]"
+            className="relative w-10 h-10 rounded-full bg-[#FF9800]/10 flex items-center justify-center hover:bg-[#FF9800]/20 transition border-2 border-[#FFD600] text-[#388E1B]"
             aria-label="Voir le panier"
             onClick={() => setShowCart(true)}
           >
@@ -171,7 +187,7 @@ export default function Home() {
                       if (!prod) return null;
                       return (
                         <li key={item.productId} className="flex items-center gap-4 border-b border-gray-100 pb-4">
-                          <img src={prod.image} alt={prod.name} className="w-14 h-14 rounded-lg object-cover border border-gray-200" />
+                          <img src={prod.image} alt={prod.name} className="w-18 h-18 rounded-lg object-cover border border-gray-200" />
                           <div className="flex-1">
                             <div className="font-bold text-[#357A1A] text-lg">{prod.name}</div>
                             <div className="text-gray-500 text-sm">{prod.weight}</div>
@@ -245,7 +261,7 @@ export default function Home() {
                       className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full flex flex-col gap-4 relative"
                       style={{ zIndex: 60 }}
                       onSubmit={async e => {
-                            console.log('SUBMIT FORMULAIRE COMMANDE');
+                        console.log('SUBMIT FORMULAIRE COMMANDE');
                         e.preventDefault();
                         if (!clientName.trim() || !clientPhone.trim() || !deliveryPlace.trim()) {
                           setOrderError("Veuillez remplir tous les champs obligatoires.");
@@ -358,12 +374,12 @@ export default function Home() {
         )}
       </header>
       {/* Carrousel immersif plein écran */}
-      <div className="absolute left-0 top-[72px] w-screen" style={{ height: 'calc(100vh - 72px)', background: '#F5F5E5', zIndex: 20, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="absolute left-0 top-[45px] w-screen" style={{ height: 'calc(100vh - 45px)', background: '#F5F5E5', zIndex: 20, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
         {/* Flèche gauche */}
         <button
           onClick={prevProduct}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold z-30"
+          className="absolute left-1 top-1/2 -translate-y-1/2 w-13 h-13 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold z-30"
           style={{ boxShadow: "0 2px 12px #FFD58033" }}
           aria-label="Produit précédent"
         >
@@ -371,7 +387,7 @@ export default function Home() {
         </button>
         {/* Carrousel coverflow */}
         <div
-          className="relative w-full h-full flex items-center justify-center pb-24"
+          className="relative w-full h-full flex items-center justify-center"
           onTouchStart={e => setTouchStartX(e.touches[0].clientX)}
           onTouchMove={e => setTouchEndX(e.touches[0].clientX)}
           onTouchEnd={() => {
@@ -395,7 +411,7 @@ export default function Home() {
             const nextIdx = (carouselIndex + 1) % products.length;
             if (![prevIdx, carouselIndex, nextIdx].includes(i)) return null;
             let cardClass =
-              "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 flex flex-col items-center justify-center shadow-2xl bg-white rounded-3xl border-4 border-[#FFD580] p-6 overflow-hidden";
+              "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 flex flex-col items-center justify-between shadow-2xl bg-white rounded-3xl border-4 border-[#FFD580] p-6 md:p-4 overflow-hidden";
             let scale = "scale-100";
             let z = "z-20";
             let opacity = "opacity-100";
@@ -422,27 +438,19 @@ export default function Home() {
                 <img
                   src={prod.image}
                   alt={prod.name}
-                  className="w-40 h-40 md:w-56 md:h-56 object-contain rounded-2xl shadow-lg mb-4 bg-white"
+                  className="w-40 h-40 md:w-50 md:h-50 object-contain rounded-2xl shadow-lg mb-2 bg-white"
                 />
                 {/* Nom, poids */}
                 <div className="text-3xl font-extrabold text-[#388E1B] mb-1 text-center">{prod.name}</div>
 
                 {/* Description */}
-                <div className="text-[#388E1B]/90 text-base mb-1 text-center line-clamp-2" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis', minHeight: '3.2em' }}>
+                <div onClick={e => { e.stopPropagation(); setDescModalProduct(prod.name); }} className="text-[#388E1B]/90 text-base mb-1 text-center line-clamp-2" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis', minHeight: '4.6em' }}>
                   {prod.description}
                 </div>
-                {prod.description && prod.description.length > 80 && (
-                  <div className="mb-4 flex justify-center">
-                    <button
-                      className="px-3 py-1 bg-white text-[#4A9800] text-sm font-semibold hover:underline rounded-full border border-[#4A9800]/30 shadow-sm"
-                      onClick={e => { e.stopPropagation(); setDescModalProduct(prod.name); }}
-                    >Lire plus</button>
-                  </div>
-                )}
                 {/* Modal description complète */}
                 {descModalProduct === prod.name && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => setDescModalProduct(null)}>
-                    <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full relative" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-9/10 relative" onClick={e => e.stopPropagation()}>
                       <button className="absolute top-2 right-2 text-[#E53935] text-2xl font-bold" onClick={() => setDescModalProduct(null)} aria-label="Fermer">&times;</button>
                       <h2 className="text-xl font-bold mb-4 text-[#357A1A]">Description complète</h2>
                       <div className="text-[#388E1B] text-base whitespace-pre-line">{prod.description}</div>
@@ -464,7 +472,7 @@ export default function Home() {
                 {prod.nutrition && prod.nutrition.length > 0 && (
                   <div className="flex flex-wrap justify-center gap-3 mb-4">
                     {prod.nutrition.map((nut, k) => (
-                      <div key={k} className="bg-white text-[#FF7A00] rounded-2xl px-4 py-2 text-base font-semibold min-w-[90px] text-center border border-[#FFD580] shadow-sm">
+                      <div key={k} className="bg-white text-[#FF7A00] rounded-2xl px-2 py-2 text-base font-semibold min-w-[90px] text-center border border-[#FFD580] shadow-sm">
                         <div className="text-xs opacity-80">{nut.name}</div>
                         <div className={`text-lg font-bold ${nut.name && nut.name.toLowerCase().includes('énergie') ? 'text-[#E53935]' : ''}`}>{nut.value}</div>
                       </div>
@@ -545,14 +553,13 @@ export default function Home() {
         {/* Flèche droite */}
         <button
           onClick={nextProduct}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold z-30"
+          className="absolute right-1 top-1/2 -translate-y-1/2 w-13 h-13 rounded-full bg-white flex items-center justify-center border-2 border-[#FF9800] hover:bg-[#388E1B] hover:text-white transition text-2xl text-[#388E1B] font-bold z-30"
           style={{ boxShadow: "0 2px 12px #FFD58033" }}
           aria-label="Produit suivant"
         >
           &#8594;
         </button>
         {/* Footer du carrousel, visible mais non fixe */}
-
       </div>
     </div>
   );

@@ -9,11 +9,6 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
     const server = express();
 
-    // Custom route example (optional)
-    server.get('/hello', (req, res) => {
-        res.send('Hello from custom route!');
-    });
-
     // All other routes handled by Next.js
     server.all('*', (req, res) => {
         return handle(req, res);

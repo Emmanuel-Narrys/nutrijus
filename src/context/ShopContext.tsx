@@ -11,7 +11,7 @@ export enum OrderStatus {
 }
 
 export enum PaymentMode {
-    CashOnDelivery = "Cash on delivery",
+    CashOnDelivery = "Paiement à la livraison",
     MobileMoney = "Mobile Money",
     Card = "Card"
 }

@@ -11,13 +11,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(500).json({ error: 'WhatsApp API credentials missing.' });
     }
 
-    const url = `https://graph.facebook.com/v19.0/${phoneNumberId}/messages`;
+    const url = `https://graph.facebook.com/v23.0/${phoneNumberId}/messages`;
 
     const payload = {
         messaging_product: 'whatsapp',
-        to,
+        recipient_type: "individual",
+        to: to,
         type: 'text',
-        text: { body: message }
+        text: {
+            preview_url: false,
+            body: message
+        }
     };
 
     try {
@@ -29,7 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
             body: JSON.stringify(payload)
         });
+        console.log("apiRes: ", apiRes)
         const data = await apiRes.json();
+        console.log("data: ", data)
         if (!apiRes.ok) return res.status(500).json(data);
         res.status(200).json(data);
     } catch (error) {

@@ -9,7 +9,7 @@ interface CustomerInfo {
   deliveryPlace: string;
 }
 
-import { OrderStatus } from "../../context/ShopContext";
+import { OrderStatus, PaymentMode } from "../../context/ShopContext";
 
 interface Order {
   id: string;
@@ -122,13 +122,13 @@ export default function AdminOrders() {
   // ...
   const [includeDeliveryFee, setIncludeDeliveryFee] = useState<boolean>(true);
   const deliveryFee = 1000;
-  const [selectedStatus, setSelectedStatus] = useState<string>("pending");
+  const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(OrderStatus.Pending);
   const [modal, setModal] = useState<{ mode: 'add' | 'edit', index?: number, order: Order } | null>(null);
 
   useEffect(() => {
-    setSelectedStatus(modal?.order?.status || "pending");
+    setSelectedStatus(modal?.order?.status || OrderStatus.Pending);
   }, [modal]);
-  // ...
+
   const [manualTotal, setManualTotal] = useState<number | null>(null);
 
   const router = useRouter();
@@ -138,6 +138,7 @@ export default function AdminOrders() {
   const [confirmDelete, setConfirmDelete] = useState<{ index: number, customer: string } | null>(null);
   const [notif, setNotif] = useState<string | null>(null);
   const [detailOrder, setDetailOrder] = useState<Order | null>(null);
+
   // Liste des produits (chargée depuis products.json)
   // Import Product interface from products.tsx or redefine if not exported
   interface Product {
@@ -421,7 +422,8 @@ export default function AdminOrders() {
       },
       status: selectedStatus as OrderStatus || OrderStatus.Pending,
       delivery: String(data.get('deliveryPlace') || ''),
-      payment: String(data.get('payment') || ''),
+      //payment: String(data.get('payment') || ''),
+      payment: modal?.mode === 'edit' && modal?.order?.payment ? modal.order.payment : PaymentMode.CashOnDelivery,
       date: String(data.get('date') || ''),
     };
     if (modal?.mode === 'add') {
@@ -624,11 +626,7 @@ export default function AdminOrders() {
                       <td className="py-2 px-4 font-bold">{order.total} FCFA</td>
                       <td className="py-2 px-4">{order.date ? order.date.slice(0, 10) : ''}</td>
                       <td className="py-2 px-4">{
-                        STATUS_LABELS[
-                        (typeof order.status === 'string'
-                          ? (order.status.charAt(0).toUpperCase() + order.status.slice(1).toLowerCase())
-                          : order.status) as OrderStatus
-                        ] || order.status
+                        STATUS_LABELS[order.status] || order.status
                       }</td>
                       <td className="py-2 px-4 flex gap-2">
                         <button
@@ -662,7 +660,7 @@ export default function AdminOrders() {
             <h2 className="text-2xl font-bold text-[#357A1A] mb-4 text-gray-900">Détails de la commande</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div><span className="font-semibold">ID Commande :</span> {detailOrder.id}</div>
-              <div><span className="font-semibold">Statut :</span> {detailOrder.status}</div>
+              <div><span className="font-semibold">Statut :</span> {STATUS_LABELS[detailOrder.status]}</div>
               <div><span className="font-semibold">Date :</span> {detailOrder.date ? detailOrder.date.slice(0, 10) : ''}</div>
               <div><span className="font-semibold">Créée le :</span> {detailOrder.createdAt ? detailOrder.createdAt.slice(0, 19).replace('T', ' ') : ''}</div>
               <div><span className="font-semibold">Client :</span> {detailOrder.customerInfo?.name}</div>
@@ -746,13 +744,12 @@ export default function AdminOrders() {
                 id="status"
                 name="status"
                 value={selectedStatus}
-                onChange={e => setSelectedStatus(e.target.value)}
+                onChange={e => setSelectedStatus(e.target.value as OrderStatus)}
                 className="border border-gray-400 focus:border-[#4A9800] focus:ring-2 focus:ring-[#E6F9D5] p-2 rounded outline-none text-gray-900 bg-white"
               >
-                <option value="pending">En attente</option>
-                <option value="processing">En cours</option>
-                <option value="delivered">Livrée</option>
-                <option value="cancelled">Annulée</option>
+                {Object.entries(STATUS_LABELS).map(([status, label]) => (
+                  <option key={status} value={status}>{label}</option>
+                ))}
               </select>
             </div>
             <button type="submit" className="bg-[#FF7A00] text-white rounded p-2 font-bold hover:bg-[#E53935]">{modal.mode === 'add' ? 'Ajouter' : 'Enregistrer'}</button>

@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ShopProvider>
       <Component {...pageProps} />
       <PWAInstallButton />
-      {/* <WhatsAppChatWidget /> */}
+      <WhatsAppChatWidget />
     </ShopProvider>
   );
 }
